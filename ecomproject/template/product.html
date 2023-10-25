@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadesc %}
+        {{product.des|truncatewords:155}}
+{% endblock %}
+
+
+
+{% block title %}
+   {% if category %}
+        {{product.name}}
+   {% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+<!--<div class="container">-->
+<!--    <div>-->
+<!--        <div>-->
+<!--           <p> <a href="{% url 'shopapp:allproduct' %}">HOME</a>|   <a href="{{product.category.get_url}}">{{product.category}}</a>|{{product.name}}</p>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<br>
+<div class="detail">
+    <div>
+        <div >
+        <img class="proimg" src="{{product.img.url}}" alt="{{product.name}}" height="150" width="150">
+        </div>
+
+    </div>
+</div>
+<div class="detail1">
+    <div class="productbtn">
+        <b>{{product.name}}</b><br>
+
+       Today's Deal: M.R.P.:₹<b>{{product.price2}}</b><br>
+
+        M.R.P.:₹<s>{{product.price}}</s>
+
+        <ul>
+            <li>Bank Offer5% Cashback on Flipkart Axis Bank CardT&C</li>
+
+
+            <li>No Cost EMI on Debit Card</li>
+         {% if product.stock <= 0 %}
+          <h4 class="productbtn" style="color: red"><p><b>CURRENTLY UNAVAILABLE</b></p></h4>
+        {% else %}
+            <div class="productbtn">
+                <h4 class="productbtn" style="color: green"><p><b>In Stock</b></p></h4>
+            <a  href="{% url 'cart:add_cart' product.id %}"><button CLASS="buttonCART">ADD TO CART</button></a>|<a href=" "><button class="buttonbuy"> BUY NOW</button></a><br>
+            </div>
+        {% endif %}
+        <div class="prodes"></div>
+        <h3 >PRODUCT DESCRIPTION</h3>
+        {{product.des}}<br>
+        </div>
+
+    </div>
+</div>
+
+
+<!--<div>-->
+<!--    <h2><b>REVIEW</b></h2>-->
+
+<!--            <div class="card">-->
+<!--                 <div class="card-body">-->
+<!--                <h5 class="card-title">{{t2.name }}</h5>-->
+<!--                <p class="card-text">{{t2.review}}</p>-->
+<!--                 </div>-->
+<!--            </div>-->
+
+<!--    </div>-->
+
+{% endblock %}

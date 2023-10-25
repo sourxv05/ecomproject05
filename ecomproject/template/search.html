@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadesc %}
+        {{product.des|truncatewords:155}}
+{% endblock %}
+
+{% block content %}
+
+<div >
+   <p class="text center"> you have searched for "{{query}}"</p>
+</div>
+
+<div class="container product" >
+    <div class="row ">
+        {% for i in products %}
+
+
+        <div class="col-md-3">
+            <div class="card">
+             <a  href="{{i.get_url}}"><img src="{{i.img.url}}" alt="{{i.name}}" width="150" height="150"> </a>
+
+
+                <div class="card-body">
+                    <h5 class="card-title">{{i.name}}</h5>
+                    <p class="card-text"></p>
+
+
+
+                Special price M.R.P.:₹<b>{{i.price2}}</b>
+
+                <p>M.R.P.:₹<s>{{i.price}}</p></s><br>
+
+                <a href="{{i.get_url}}"><button class="button">view product</button></a>
+                    </p>
+                    </p>
+                </div>
+
+             </div>
+
+        </div>
+
+        {% empty %}
+            <div class="center">
+            <p>
+                0 results
+            </p>
+             </div>
+     </div>
+    {% endfor %}
+  </div>
+{% endblock %}
+
+

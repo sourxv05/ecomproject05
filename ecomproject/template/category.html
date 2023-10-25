@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadesc %}
+    {% if category %}
+        {{category.des|truncatewords:155}}
+    {% else %}
+        welcome
+    {% endif %}
+{% endblock %}
+
+
+
+{% block title %}
+    {% if category %}
+        {{category.name}}
+    {% else %}
+
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if category %}
+        <div class="container">
+            <div class=" my_row">
+                <div class=" mx-auto">
+
+
+<!--                    <p><a  href="{% url 'shopapp:allproduct' %}"><img  src="{% static 'img/offbanner.jpeg' %}" alt="our product"  height="600px" width="1000px"></a> </p>-->
+
+
+            </div>
+<!--                <div class="col-md-6">-->
+<!--                    <img  src="{% static 'img/banner4.jpg' %}" alt="our product"  height="600px" width="1000px">-->
+<!--                </div>-->
+                </div>
+        </div>
+    {% endif %}
+<div>
+
+        {% if category %}
+       <center> <img class="my_img"  src="{{category.img.url}}" alt="{{category.name}}"></center>
+
+</div>
+    <br>
+<div>
+    <h1 class="text-center cat_title"><strong>{{category.name}}</strong></h1>
+
+</div>
+    {% else %}
+<img  src="{% static 'img/banner2.jpg' %}" alt="our product" width="1525" height="500" >
+
+ <br>
+<div >
+
+      <p  class="marq"> <marquee  behavior="scroll"  width="100%" direction="left" height="100px">
+           <h2> SHOES, CLOTHING & ACCESSORIES SALE: UP TO 55% OFF</h2>
+        </marquee></p>
+
+</div>
+
+<br>
+  <div class="slider">
+      <span id="slide-1"></span>
+      <span id="slide-2"></span>
+      <span id="slide-3"></span>
+      <div class="image-container">
+        <img src="{% static 'img/offbanner.jpeg' %}" class="slide" width="500" height="300" />
+        <img src="{% static 'img/shop.png' %}" class="slide" width="500" height="300" />
+        <img src="{% static 'img/offer23.jpg '%}" class="slide" width="500" height="300" />
+      </div>
+      <div class="buttons">
+        <a href="#slide-1"></a>
+        <a href="#slide-2"></a>
+        <a href="#slide-3"></a>
+      </div>
+    </div>
+<!--<div>-->
+<!--       <img class="my_img" src="{% static 'img/banner2.jpg' %}" alt="our product" >-->
+
+<!--   </div>-->
+    <div class="ourp">
+     <h1 class="text-center">our products</h1>
+    <p class="text-justify">
+        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+    </p>
+        </div>
+    {% endif %}
+<div class="container product" id="all" >
+    <div class="row ">
+        {% for i in products.object_list %}
+
+
+                <div class="col-md-3">
+          <div class="card" style="width: 18rem;">
+               <a  href="{{i.get_url}}"><img src="{{i.img.url}}" alt="{{i.name}}" width="150" height="150"> </a>
+              <div class="card-body">
+
+                <h5 class="card-title">{{i.name}}</h5>
+                 <p class="card-text">
+                  Special price M.R.P.:₹<b>{{i.price2}}</b>
+
+            <p>M.R.P.:₹<s>{{i.price}}</p></s><br>
+
+            <a href="{{i.get_url}}"><button class="button">view product</button></a>
+                </p>
+              </div>
+
+
+
+
+            </div>
+
+
+
+    </div>
+    {% endfor %}
+
+</div>
+    <div class="mx-auto">
+    {% if products.paginator.num_pages > 1 %}
+
+
+
+    <div class="text-center">
+        {% for pg in products.paginator.page_range %}
+
+            <a  href="?page={{pg}}" class="btn btn-light btn-sm {% if  products.number == pg %}  active {% endif %}" >  {{pg}} </a>
+
+            {% endfor %}
+    </div>
+        {% endif %}
+
+</div>
+
+{% endblock %}
+    </div>
+
+

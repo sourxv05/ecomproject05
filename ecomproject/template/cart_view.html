@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadesc %}
+        {{product.des|truncatewords:155}}
+{% endblock %}
+
+
+
+{% block title %}
+   {% if category %}
+        {{product.name}}
+   {% endif %}
+
+{% endblock %}
+
+{% block content %}
+{% if not cart_items %}
+    <div>
+        <div class=" text-center">
+            <br>
+            <hi class="text center">
+                your cart is empty
+            </hi>
+            <p class="text-center">
+
+            </p>
+        </div>
+    </div>
+{% else %}
+
+    <div class="text-center">
+
+            <br>
+            <h1 class="text-center">
+                SHOPPING<i class="fa-solid fa-cart-plus"></i>
+            </h1>
+            <br>
+    </div>
+
+        <div class="text-center">
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+
+
+                  {% for cart_item in cart_items %}
+
+                <div class="col-md-3">
+          <div class="card  cart">
+                  <a href="{{cart_item.Product.get_url}}"><img class="card-img-left" src="{{cart_item.Product.img.url}}" height="150px" width="150p"></a>
+              <div class="card-body">
+
+                <h5 class="card-title">{{cart_item.Product.name}}</h5>
+                 <p class="card-text">
+                    <b style="color: red">M.R.P.:₹{{cart_item.Product.price2}}</b><br>
+            M.R.P.:₹<s>{{cart_item.Product.price}}</s><br>
+<!--                  qty: {{cart_item.quantity}} X ${{cart_item.Product.price2}}<br>-->
+
+
+<!--            <a href="{{i.get_url}}"><button class="button">view product</button></a>-->
+                   <h6 class="subtotal"> sub total({{cart_item.quantity}} items)=${{cart_item.sub_total}}</h6>
+                </p>
+                <div>
+                    {{total}}
+                   {% if cart_item.quantity < cart_item.Product.stock %}
+                        <a href="{% url 'cart:add_cart' cart_item.Product.id %}" class="custom_a" ><i class="fa-solid fa-plus"></i></a> &nbsp;
+                        <a href="{% url 'cart:cart_remove' cart_item.Product.id %}" class="custom_a"><i class="fa-solid fa-minus"></i></a><br>
+                        <a href="{% url 'cart:cart_delete' cart_item.Product.id %}" class="custom_a"><button>delete</button></a>
+
+                   {% else %}
+                        <a href="{% url 'cart:cart_remove' cart_item.Product.id %}" class="custom_a"><i class="fa-solid fa-minus"></i></a> <br>
+                       <a href="{% url 'cart:cart_delete' cart_item.Product.id %}" class="custom_a"><button>delete</button></a>
+                    {% endif %}
+                    <a  class="text-center" href="{% url 'shopapp:allproduct' %}"><button>see more like this</button> </a>
+                </div>
+
+              </div>
+
+
+          </div>
+
+                </div>
+<!--             <div class="col-md-9">-->
+<!--                <div class="card">-->
+
+<!--                    <div class="card-body">-->
+
+<!--                <h5 class="card-title">{{cart_item.Product.name}}</h5>-->
+<!--                 <p class="card-text">-->
+<!--                    <b style="color: red">M.R.P.:₹{{cart_item.Product.price2}}</b><br>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+                {% endfor %}
+            <HR class="hr">
+            <h5>The price and availability of items at mykart.com are subject to change. The shopping cart is a temporary place to store a list of your items and reflects each item's most recent price.</h5><br>
+             <a  class="text-center" href="{% url 'shopapp:allproduct' %}">continue shopping.. </a>
+            </div>
+
+
+            </div>
+        </div>
+
+
+{% endif %}
+<!--</div>-->
+<!--</div>-->
+
+{% endblock %}
